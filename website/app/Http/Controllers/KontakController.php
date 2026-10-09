@@ -28,7 +28,7 @@ class KontakController extends Controller
             'arah' => 'https://www.google.com/maps/dir/?api=1&destination=SMP+Negeri+1+Loceret+Nganjuk',
         ];
 
-        return view('kontak', compact('jam', 'medsos', 'peta'));
+        return view('public.kontak', compact('jam', 'medsos', 'peta'));
     }
 
     public function kirim(Request $request)

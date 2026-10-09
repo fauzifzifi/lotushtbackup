@@ -115,7 +115,7 @@ class GaleriController extends Controller
         $videoUtama = $semuaVideo->first();
         $videoLain = $semuaVideo->slice(1)->values();
 
-        return view('galeri', compact(
+        return view('public.galeri', compact(
             'kategori',
             'aktif',
             'foto',

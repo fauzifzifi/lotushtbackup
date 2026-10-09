@@ -119,7 +119,7 @@ class AkademikController extends Controller
             ? $semuaPrestasi->where('bidang', $bidangAktif)->values()
             : $semuaPrestasi;
 
-        return view('akademik', compact(
+        return view('public.akademik', compact(
             'ringkasan',
             'guru',
             'daftarMapel',

@@ -13,11 +13,11 @@
 </head>
 <body>
 
-@include('partials.navbar')
+@include('partials.public.navbar')
 
 @yield('konten')
 
-@include('partials.footer')
+@include('partials.public.footer')
 
 @stack('scripts')
 </body>

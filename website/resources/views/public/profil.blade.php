@@ -33,7 +33,7 @@
     </div>
 
     {{-- Banner visi beranimasi (CSS: public/css/visi-banner.css) --}}
-@include('partials.visi-banner')
+@include('partials.public.visi-banner')
 
     <div class="misi-kepala">
       <h3>Misi SMP Negeri 1 Loceret</h3>
