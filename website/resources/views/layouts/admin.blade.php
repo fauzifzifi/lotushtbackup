@@ -20,6 +20,7 @@
     @include('partials.admin.topbar')
 
     <main class="admin-content">
+      @include('partials.admin.notifikasi')
       @yield('konten')
     </main>
   </div>

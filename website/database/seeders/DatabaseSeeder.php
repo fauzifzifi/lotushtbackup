@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
                 'password' => 'admin12345',
             ]
         );
+        $this->call(GuruSeeder::class);
     }
 }
