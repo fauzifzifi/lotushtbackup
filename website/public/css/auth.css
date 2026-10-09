@@ -1,0 +1,360 @@
+:root {
+    --primary: #173b78;
+    --primary-dark: #0b2a5c;
+    --secondary: #2857a4;
+    --netral: #14213d;
+    --bg: #faf8ff;
+    --muted: #59627a;
+    --line: #e3e8f4;
+    --blue-light: #e4ebfb;
+
+    --font-judul: "Plus Jakarta Sans", system-ui, sans-serif;
+    --font-isi: "Inter", system-ui, sans-serif;
+
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+.auth-body {
+    margin: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+    color: var(--netral);
+    font-family: var(--font-isi);
+}
+
+/* Header */
+.auth-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 48px;
+    background: #fff;
+}
+.auth-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+}
+.auth-brand img {
+    height: 50px;
+    width: auto;
+}
+.auth-brand-text {
+    display: flex;
+    flex-direction: column;
+}
+.auth-brand-text strong {
+    font-family: var(--font-judul);
+    font-size: 18px;
+    color: var(--primary-dark);
+}
+.auth-brand-text small {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.auth-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    border-radius: 999px;
+    background: var(--primary);
+    color: #fff;
+    font-family: var(--font-judul);
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s;
+}
+.auth-back:hover {
+    background: var(--primary-dark);
+}
+
+/* Area tengah */
+.auth-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 20px;
+}
+
+/* Footer */
+.auth-footer {
+    padding: 28px 48px;
+    background: #fff;
+}
+.auth-footer p {
+    margin: 0;
+    font-size: 15px;
+    color: var(--muted);
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+    .auth-header {
+        padding: 14px 16px;
+    }
+    .auth-brand img {
+        height: 40px;
+    }
+    .auth-brand-text small {
+        display: none;
+    }
+    .auth-back {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+    .auth-main {
+        padding: 28px 16px;
+    }
+    .auth-footer {
+        padding: 20px 16px;
+    }
+}
+
+/* ===== Ikon ===== */
+.ic {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* ===== Kartu login ===== */
+.login-card {
+    width: 100%;
+    max-width: 600px;
+    padding: 48px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(23, 59, 120, 0.06);
+}
+.login-card h1 {
+    margin: 0 0 8px;
+    font-family: var(--font-judul);
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--primary-dark);
+}
+.login-sub {
+    margin: 0 0 28px;
+    font-size: 17px;
+    line-height: 1.6;
+    color: #3d4560;
+}
+
+/* ===== Banner error ===== */
+.alert-error {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding: 16px 18px;
+    background: #ffdad6;
+    border: 1px solid #f5b5b0;
+    border-radius: 14px;
+    color: #ba1a1a;
+}
+.alert-error strong {
+    display: block;
+    font-size: 15px;
+}
+.alert-error p {
+    margin: 2px 0 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* ===== Field ===== */
+.field {
+    margin-bottom: 20px;
+}
+.field label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--netral);
+}
+.req {
+    color: #ba1a1a;
+}
+
+.input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 56px;
+    padding: 0 14px;
+    background: #f1f2fe;
+    border: 2px solid transparent;
+    border-radius: 14px;
+    transition:
+        border-color 0.2s,
+        background 0.2s;
+}
+.input-wrap:focus-within {
+    background: #fff;
+    border-color: var(--secondary);
+}
+.input-wrap input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    font-family: var(--font-isi);
+    font-size: 16px;
+    color: var(--netral);
+}
+.input-wrap input::placeholder {
+    color: #7a8299;
+}
+.ic-left {
+    color: var(--muted);
+}
+
+.toggle-pass {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border: 0;
+    border-radius: 10px;
+    background: #dfe6fb;
+    color: var(--primary-dark);
+    font-family: var(--font-judul);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.toggle-pass .ic {
+    width: 16px;
+    height: 16px;
+}
+
+.field-meta {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 10px;
+}
+.link-lupa {
+    margin-left: auto;
+    font-size: 15px;
+    color: var(--secondary);
+    text-decoration: underline;
+    white-space: nowrap;
+}
+
+/* ===== State error pada field ===== */
+.field.is-error .input-wrap {
+    background: #fff0ef;
+    border-color: #ba1a1a;
+}
+.ic-err {
+    color: #ba1a1a;
+}
+.field-msg {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 8px 0 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #ba1a1a;
+}
+.field-meta .field-msg {
+    margin: 0;
+}
+.field-msg .ic {
+    width: 16px;
+    height: 16px;
+}
+
+/* ===== Remember me ===== */
+.remember {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 4px 0 24px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.remember input {
+    width: 22px;
+    height: 22px;
+    accent-color: var(--primary);
+}
+
+/* ===== Tombol masuk ===== */
+.btn-masuk {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: 52px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--primary-dark);
+    color: #fff;
+    font-family: var(--font-judul);
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.btn-masuk:hover {
+    background: var(--primary);
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 640px) {
+    .login-card {
+        padding: 28px 20px;
+        border-radius: 16px;
+    }
+    .login-card h1 {
+        font-size: 30px;
+    }
+    .login-sub {
+        font-size: 15px;
+    }
+    .toggle-pass span {
+        display: none;
+    }
+}
+
+/* ===== Error memudar ===== */
+.alert-error,
+.field-msg,
+.ic-err {
+    transition: opacity 0.1s ease;
+}
+.memudar {
+    opacity: 0;
+}
