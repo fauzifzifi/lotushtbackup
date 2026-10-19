@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('judul', 'Akademik - SMP Negeri 1 Loceret')
+@section('judul', 'SMP Negeri 1 Loceret - Layanan & Informasi Akademik')
 
 @section('konten')
 
@@ -51,7 +51,7 @@
           <input type="search" name="q" value="{{ $q }}" placeholder="Cari nama atau mapel...">
         </label>
 
-        <select name="mapel" class="cari-pilih" onchange="this.form.submit()" aria-label="Filter mata pelajaran">
+        <select name="mapel" class="cari-pilih" aria-label="Filter mata pelajaran">
           <option value="">Semua Mata Pelajaran</option>
           @foreach ($daftarMapel as $m)
             <option value="{{ $m }}" {{ $mapel === $m ? 'selected' : '' }}>{{ $m }}</option>
@@ -60,13 +60,20 @@
       </form>
     </div>
 
+  <div id="guruHasil">
     <div class="guru-grid">
       @forelse ($guru as $g)
         <article class="guru-kartu">
-          <div class="guru-foto"></div>
+          <div class="guru-foto">
+            @if ($g->foto_url)
+              <img src="{{ $g->foto_url }}" alt="Foto {{ $g->nama }}" loading="lazy">
+            @else
+              <span aria-hidden="true">{{ mb_strtoupper(mb_substr($g->nama, 0, 1)) }}</span>
+            @endif
+          </div>
           <div>
-            <span class="guru-mapel">{{ $g['mapel'] }}</span>
-            <h3 class="guru-nama">{{ $g['nama'] }}</h3>
+            <span class="guru-mapel">{{ $g->mapel }}</span>
+            <h3 class="guru-nama">{{ $g->nama }}</h3>
           </div>
         </article>
       @empty
@@ -89,6 +96,7 @@
         </nav>
       </div>
     @endif
+  </div>
 
   </section>
 
@@ -200,3 +208,74 @@
 </main>
 
 @endsection
+
+@push('scripts')
+<script>
+  (function () {
+    const form  = document.querySelector('#guru .cari-form');
+    const hasil = document.getElementById('guruHasil');
+    if (!form || !hasil) return;
+
+    const input = form.querySelector('input[name="q"]');
+    const pilih = form.querySelector('select[name="mapel"]');
+    let timer, kontrolTerakhir;
+
+    // Susun alamat pencarian dari isi form, tanpa kolom yang kosong
+    function urlPencarian() {
+      const p = new URLSearchParams(new FormData(form));
+      for (const [k, v] of [...p]) if (v === '') p.delete(k);
+      const qs = p.toString();
+      return form.action.split('#')[0] + (qs ? '?' + qs : '');
+    }
+
+    async function muat(url) {
+      if (kontrolTerakhir) kontrolTerakhir.abort();   // batalkan permintaan lama
+      const saya = new AbortController();
+      kontrolTerakhir = saya;
+      hasil.classList.add('memuat');
+
+      try {
+        const res = await fetch(url, { signal: saya.signal });
+        if (!res.ok) throw new Error('Status ' + res.status);
+
+        const html = await res.text();
+        const baru = new DOMParser().parseFromString(html, 'text/html').getElementById('guruHasil');
+        if (!baru) throw new Error('Bagian hasil tidak ditemukan');
+
+        hasil.innerHTML = baru.innerHTML;
+        history.replaceState(null, '', url + '#guru');  // alamat di browser ikut berubah
+      } catch (e) {
+        if (e.name === 'AbortError') return;            // normal: kalah oleh ketikan berikutnya
+        window.location.href = url + '#guru';           // cadangan: muat halaman seperti biasa
+      } finally {
+        if (kontrolTerakhir === saya) hasil.classList.remove('memuat');
+      }
+    }
+
+    // Ketik: tunggu 0,3 detik setelah berhenti mengetik
+    input.addEventListener('input', () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => muat(urlPencarian()), 300);
+    });
+
+    // Ganti mata pelajaran: langsung cari
+    pilih.addEventListener('change', () => muat(urlPencarian()));
+
+    // Tekan Enter: cari sekarang juga, tanpa memuat ulang halaman
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      clearTimeout(timer);
+      muat(urlPencarian());
+    });
+
+    // Klik nomor halaman: pindah tanpa memuat ulang
+    hasil.addEventListener('click', (e) => {
+      const a = e.target.closest('.halaman-nav a');
+      if (!a || a.classList.contains('mati') || a.getAttribute('href') === '#') return;
+      e.preventDefault();
+      muat(a.href.split('#')[0]);
+      document.getElementById('guru').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  })();
+</script>
+@endpush

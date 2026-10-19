@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('judul', 'Hasil Pencarian - SMP Negeri 1 Loceret')
+@section('judul', 'SMP Negeri 1 Loceret - Hasil Pencarian')
 
 @section('konten')
 <main class="wrap" style="padding:60px 0 80px; min-height:60vh;">

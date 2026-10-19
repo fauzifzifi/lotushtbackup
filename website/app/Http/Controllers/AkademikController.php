@@ -3,51 +3,35 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
+use App\Models\Guru;
 
 class AkademikController extends Controller
 {
     public function index(Request $request)
     {
-        // ---------- Ringkasan di header (nanti dihitung dari database) ----------
-        $ringkasan = ['guru' => 48, 'juara' => 124];
-
-        // ---------- Data guru (dummy) ----------
-        $semuaGuru = collect([
-            ['nama' => 'Sukorini, S.Pd', 'mapel' => 'Ilmu Pengetahuan Alam'],
-            ['nama' => 'Anam, S.Ag.,M.Pd.I', 'mapel' => 'Pendidikan Agama Islam'],
-            ['nama' => 'Luluk Dewi M, S.Pd.', 'mapel' => 'Matematika'],
-            ['nama' => 'Hardi Handoko, S.Pd', 'mapel' => 'Informatika'],
-            ['nama' => 'Nio Zaharani, S.Pd', 'mapel' => 'Seni Budaya'],
-            ['nama' => 'Sri Kuswandari, S.Pd', 'mapel' => 'Bahasa Indonesia'],
-        ]);
-
-        $daftarMapel = $semuaGuru->pluck('mapel')->unique()->sort()->values();
-
+        // ---------- Data guru (dari database) ----------
         $q = trim((string) $request->query('q', ''));
         $mapel = (string) $request->query('mapel', '');
 
-        $terfilter = $semuaGuru
-            ->when($q !== '', function ($c) use ($q) {
-                return $c->filter(function ($g) use ($q) {
-                    return str_contains(mb_strtolower($g['nama'] . ' ' . $g['mapel']), mb_strtolower($q));
+        $guru = Guru::query()
+            ->when($q !== '', function ($query) use ($q) {
+                $query->where(function ($w) use ($q) {
+                    $w->where('nama', 'like', "%{$q}%")
+                        ->orWhere('mapel', 'like', "%{$q}%");
                 });
             })
-            ->when($mapel !== '', function ($c) use ($mapel) {
-                return $c->where('mapel', $mapel);
-            })
-            ->values();
+            ->when($mapel !== '', fn($query) => $query->where('mapel', $mapel))
+            ->orderBy('id')
+            ->paginate(6)
+            ->appends($request->query())
+            ->fragment('guru');
 
-        $perHalaman = 6;
-        $halaman = max(1, (int) $request->query('page', 1));
+        // Filter hanya menampilkan mapel yang benar-benar ada gurunya
+        $daftarMapel = Guru::query()->distinct()->orderBy('mapel')->pluck('mapel');
 
-        $guru = (new LengthAwarePaginator(
-            $terfilter->forPage($halaman, $perHalaman)->values(),
-            $terfilter->count(),
-            $perHalaman,
-            $halaman,
-            ['path' => $request->url(), 'query' => $request->query()]
-        ))->fragment('guru');
+        // ---------- Ringkasan di header ----------
+        // 'juara' masih dummy sampai modul prestasi dibuat
+        $ringkasan = ['guru' => Guru::count(), 'juara' => 124];
 
         // ---------- Rekapitulasi ekstrakurikuler (dummy) ----------
         $ekskul = [

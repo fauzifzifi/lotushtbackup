@@ -1397,3 +1397,182 @@ input.sr-only:focus-visible ~ .unggah-nama {
         text-align: center;
     }
 }
+
+/* ===== Popup konfirmasi ===== */
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        opacity 0.2s,
+        visibility 0.2s;
+}
+.modal.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+.modal-latar {
+    position: absolute;
+    inset: 0;
+    background: rgba(11, 42, 92, 0.5);
+}
+.modal-kotak {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    padding: 32px 28px 24px;
+    border-radius: 18px;
+    background: #fff;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(11, 42, 92, 0.3);
+    transform: translateY(10px);
+    transition: transform 0.2s;
+}
+.modal.is-open .modal-kotak {
+    transform: none;
+}
+.modal-ikon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    margin-bottom: 16px;
+    border-radius: 50%;
+    background: #ffdad6;
+    color: #ba1a1a;
+}
+.modal-ikon .ic {
+    width: 26px;
+    height: 26px;
+}
+.modal-kotak h2 {
+    margin: 0 0 8px;
+    font-family: var(--font-judul);
+    font-size: 22px;
+    font-weight: 700;
+}
+.modal-kotak p {
+    margin: 0 0 24px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--muted);
+}
+.modal-kotak p strong {
+    color: var(--netral);
+}
+.modal-aksi {
+    display: flex;
+    gap: 12px;
+}
+.modal-aksi > * {
+    flex: 1;
+    text-align: center;
+}
+.btn-hapus {
+    padding: 12px 20px;
+    border: 0;
+    border-radius: 12px;
+    background: #ba1a1a;
+    color: #fff;
+    font-family: var(--font-judul);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.btn-hapus:hover {
+    background: #93000a;
+}
+.modal-terbuka {
+    overflow: hidden;
+}
+
+/* ===== Popup detail guru ===== */
+button.aksi-link {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.modal-detail {
+    padding-top: 36px;
+}
+.modal-x {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    width: 34px;
+    height: 34px;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--muted);
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+}
+.modal-x:hover {
+    background: var(--blue-light);
+    color: var(--primary);
+}
+
+.detail-foto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 200px;
+    margin: 0 auto 18px;
+    overflow: hidden;
+    border-radius: 14px;
+    background: var(--blue-light);
+    color: var(--primary);
+    font-family: var(--font-judul);
+    font-size: 64px;
+    font-weight: 800;
+}
+.detail-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.modal-detail h2 {
+    margin-bottom: 10px;
+}
+.modal-detail .pil {
+    margin-bottom: 20px;
+}
+
+.detail-meta {
+    margin: 0 0 24px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: #f1f2fe;
+    text-align: left;
+}
+.detail-meta dt {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+.detail-meta dd {
+    margin: 4px 0 0;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.modal-aksi .btn-simpan {
+    justify-content: center;
+    text-decoration: none;
+}

@@ -1367,6 +1367,19 @@ html {
     border-radius: 10px;
     background: #dce4f8;
     flex-shrink: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-family: var(--font-judul);
+    font-size: 32px;
+    font-weight: 800;
+}
+.guru-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 .guru-mapel {
     display: inline-block;
@@ -2245,59 +2258,145 @@ a.gal-tab {
 }
 
 /* ========== PENCARIAN NAVBAR ========== */
-.nb-aksi { position: relative; }
+.nb-aksi {
+    position: relative;
+}
 
-.nb-cari-form { position: relative; display: flex; align-items: center; margin: 0; }
+.nb-cari-form {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
 
 /* Kolom input: tertutup (lebar 0), melebar ke kiri dari ikon */
 .nb-cari-form input {
-  position: absolute;
-  right: 100%;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 0;
-  height: 42px;
-  padding: 0;
-  margin-right: 6px;
-  border: 0;
-  border-radius: 999px;
-  background: #eef1fb;
-  font: inherit;
-  font-size: 15px;
-  color: inherit;
-  outline: none;
-  opacity: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 3;
-  transition: width .4s cubic-bezier(.4, 0, .2, 1),
-              padding .4s cubic-bezier(.4, 0, .2, 1),
-              opacity .25s ease,
-              box-shadow .25s ease;
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 42px;
+    padding: 0;
+    margin-right: 6px;
+    border: 0;
+    border-radius: 999px;
+    background: #eef1fb;
+    font: inherit;
+    font-size: 15px;
+    color: inherit;
+    outline: none;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 3;
+    transition:
+        width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        padding 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 .nb-cari-form.buka input {
-  width: min(320px, 55vw);
-  padding: 0 18px;
-  opacity: 1;
-  pointer-events: auto;
-  box-shadow: 0 0 0 2px rgba(15, 42, 95, .18);
+    width: min(320px, 55vw);
+    padding: 0 18px;
+    opacity: 1;
+    pointer-events: auto;
+    box-shadow: 0 0 0 2px rgba(15, 42, 95, 0.18);
 }
 
-.nb-cari-form input::-webkit-search-cancel-button { display: none; }
+.nb-cari-form input::-webkit-search-cancel-button {
+    display: none;
+}
 
 /* Ikon sedikit berputar saat terbuka */
-.nb-cari svg { transition: transform .4s cubic-bezier(.4, 0, .2, 1); }
-.nb-cari-form.buka .nb-cari svg { transform: rotate(90deg) scale(1.05); }
+.nb-cari svg {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.nb-cari-form.buka .nb-cari svg {
+    transform: rotate(90deg) scale(1.05);
+}
 
 /* Menu memudar agar tidak bertumpuk dengan kolom pencarian */
-.nb-menu { transition: opacity .3s ease, visibility .3s ease; }
-.nb.cari-aktif .nb-menu { opacity: 0; visibility: hidden; }
+.nb-menu {
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+}
+.nb.cari-aktif .nb-menu {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* kotak saran pencarian navbar */
+.nb-saran {
+    position: absolute;
+    top: calc(100% + 14px);
+    right: 0;
+    width: min(380px, 92vw);
+    max-height: 70vh;
+    overflow-y: auto;
+    padding: 8px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 16px 40px -12px rgba(15, 42, 95, 0.28);
+    z-index: 5;
+}
+.nb-saran[hidden] {
+    display: none;
+}
+
+.nb-saran-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    color: var(--netral);
+    text-decoration: none;
+}
+.nb-saran-item strong {
+    font-size: 15px;
+    color: var(--primary-dark);
+}
+.nb-saran-item span {
+    font-size: 13px;
+    color: var(--muted);
+}
+.nb-saran-item:hover,
+.nb-saran-item:focus-visible {
+    background: #eef1fb;
+}
+
+.nb-saran-semua {
+    display: block;
+    margin-top: 4px;
+    padding: 10px 12px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--secondary);
+    text-decoration: none;
+}
+.nb-saran-semua:hover {
+    text-decoration: underline;
+}
+
+.nb-saran-kosong {
+    margin: 0;
+    padding: 14px 12px;
+    font-size: 14px;
+    color: var(--muted);
+    text-align: center;
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .nb-cari-form input,
-  .nb-cari svg,
-  .nb-menu { transition: none; }
+    .nb-cari-form input,
+    .nb-cari svg,
+    .nb-menu {
+        transition: none;
+    }
 }
 /* Banner visi beranimasi - SMP Negeri 1 Loceret */
 .visi-anim {
@@ -2319,12 +2418,34 @@ a.gal-tab {
     z-index: -1;
     border-radius: 50%;
     filter: blur(60px);
-    opacity: .55;
+    opacity: 0.55;
     will-change: transform;
 }
-.visi-anim .orb-1 { width: 320px; height: 320px; left: -80px;  bottom: -120px; background: #2f9d86; animation: visi-drift-1 16s ease-in-out infinite; }
-.visi-anim .orb-2 { width: 280px; height: 280px; right: -60px; top: -100px;   background: #5b8cf0; animation: visi-drift-2 20s ease-in-out infinite; }
-.visi-anim .orb-3 { width: 200px; height: 200px; left: 45%;    bottom: -90px; background: #7bd0c0; opacity: .3; animation: visi-drift-3 18s ease-in-out infinite; }
+.visi-anim .orb-1 {
+    width: 320px;
+    height: 320px;
+    left: -80px;
+    bottom: -120px;
+    background: #2f9d86;
+    animation: visi-drift-1 16s ease-in-out infinite;
+}
+.visi-anim .orb-2 {
+    width: 280px;
+    height: 280px;
+    right: -60px;
+    top: -100px;
+    background: #5b8cf0;
+    animation: visi-drift-2 20s ease-in-out infinite;
+}
+.visi-anim .orb-3 {
+    width: 200px;
+    height: 200px;
+    left: 45%;
+    bottom: -90px;
+    background: #7bd0c0;
+    opacity: 0.3;
+    animation: visi-drift-3 18s ease-in-out infinite;
+}
 
 /* Kilau tipis yang lewat tiap beberapa detik */
 .visi-anim::after {
@@ -2332,7 +2453,12 @@ a.gal-tab {
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,.14) 50%, transparent 60%);
+    background: linear-gradient(
+        105deg,
+        transparent 40%,
+        rgba(255, 255, 255, 0.14) 50%,
+        transparent 60%
+    );
     transform: translateX(-120%);
     animation: visi-shine 7s ease-in-out infinite;
 }
@@ -2340,43 +2466,83 @@ a.gal-tab {
 .visi-anim blockquote {
     max-width: 960px;
     margin: 0 auto;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 800;
     font-size: clamp(22px, 3vw, 36px);
     line-height: 1.35;
     text-transform: uppercase;
-    animation: visi-text-in .9s ease-out both;
+    animation: visi-text-in 0.9s ease-out both;
 }
 
 @keyframes visi-gradient {
-    0%, 100% { background-position: 0% 50%; }
-    50%      { background-position: 100% 50%; }
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
 }
 @keyframes visi-drift-1 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50%      { transform: translate(140px, -50px) scale(1.15); }
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+    50% {
+        transform: translate(140px, -50px) scale(1.15);
+    }
 }
 @keyframes visi-drift-2 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50%      { transform: translate(-160px, 70px) scale(1.2); }
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+    50% {
+        transform: translate(-160px, 70px) scale(1.2);
+    }
 }
 @keyframes visi-drift-3 {
-    0%, 100% { transform: translate(0, 0); }
-    50%      { transform: translate(-120px, -40px); }
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(-120px, -40px);
+    }
 }
 @keyframes visi-shine {
-    0%, 55%  { transform: translateX(-120%); }
-    85%,100% { transform: translateX(120%); }
+    0%,
+    55% {
+        transform: translateX(-120%);
+    }
+    85%,
+    100% {
+        transform: translateX(120%);
+    }
 }
 @keyframes visi-text-in {
-    from { opacity: 0; transform: translateY(14px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Hormati pengguna yang mematikan animasi di perangkatnya */
 @media (prefers-reduced-motion: reduce) {
-    .visi-anim, .visi-anim .orb, .visi-anim::after, .visi-anim blockquote { animation: none; }
+    .visi-anim,
+    .visi-anim .orb,
+    .visi-anim::after,
+    .visi-anim blockquote {
+        animation: none;
+    }
 }
 @media (max-width: 640px) {
-    .visi-anim { padding: 48px 22px; border-radius: 20px; }
+    .visi-anim {
+        padding: 48px 22px;
+        border-radius: 20px;
+    }
 }

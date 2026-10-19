@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('judul', 'Profil - SMP Negeri 1 Loceret')
+@section('judul', 'SMP Negeri 1 Loceret - Profil Sekolah')
 
 @section('konten')
 
