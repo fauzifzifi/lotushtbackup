@@ -10,6 +10,7 @@ use App\Http\Controllers\AkademikController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\CariController;
+use App\Http\Controllers\Admin\DokumentasiController;
 
 Route::get('/', [BerandaController::class, 'index'])->name('beranda');
 Route::get('/profil', [ProfilController::class, 'index'])->name('profil');
@@ -24,4 +25,6 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth')->
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('guru', GuruController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+    Route::resource('dokumentasi', DokumentasiController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+    Route::resource('dokumentasi', DokumentasiController::class)->only(['index', 'create', 'store']);
 });
